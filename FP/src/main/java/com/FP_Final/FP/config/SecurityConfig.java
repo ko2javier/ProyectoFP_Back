@@ -28,7 +28,8 @@ public class SecurityConfig {
 	 @Value("${jwt.secret}") // Carga la clave secreta desde application.properties
 	    private String secretKey;
 	 
-	 
+
+	
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -48,6 +49,36 @@ public class SecurityConfig {
             .oauth2ResourceServer(oauth2 -> oauth2.jwt());
         return http.build();
     }
+	 /*
+	 @Bean
+	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	        http
+	            .cors(cors -> cors.configurationSource(request -> {
+	                var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
+	                corsConfiguration.addAllowedOrigin("http://localhost:4200");
+	                corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+	                corsConfiguration.addAllowedHeader("*");
+	                return corsConfiguration;
+	            }))
+	            .csrf(csrf -> csrf.disable())
+	            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+	            .authorizeHttpRequests(auth -> {
+	                
+	                auth.requestMatchers("auth/login", "/ventas/*").permitAll();
+	                
+	                auth.anyRequest().authenticated();
+	            })
+
+	            // Quitar esta línea si ya no quieres el ResourceServer
+	            // .oauth2ResourceServer(oauth2 -> oauth2.jwt())
+
+	            // Añadir tu filtro personalizado
+	            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+	        return http.build();
+	    }*/
+	 
+	 
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {

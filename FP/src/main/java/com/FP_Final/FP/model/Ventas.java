@@ -31,12 +31,38 @@ public class Ventas {
 
     @Column(nullable = false)
     private double importe; // Importe total de la venta
+    
+    
+    
+    
+    @Column(name="codigo", length=13, nullable=false)
+    private String codigo;
 
-    @ManyToOne // Relación opcional con ComprasCliente
-    @JoinColumn(name = "id_compras_cliente", referencedColumnName = "id", nullable = true)
-    private ComprasCliente compra;
+   
+    
+    public Ventas() {
+    }
+    public Ventas(LocalDate now, LocalTime now2, String username2, String dnicliente2, String nameproducto2,
+			int cantidad2, double importe2, String codigo ) {
+		
+		this.fecha = now;
+		this.hora = now2;
+		this.username = username2;
+		this.dnicliente = dnicliente2;
+		this.nameproducto = nameproducto2;
+		this.cantidad = cantidad2;
+		this.importe = importe2;
+		this.codigo = codigo;
+	}
 
-    // Getters y Setters
+	public String getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	// Getters y Setters
     public int getId() {
         return id;
     }
@@ -101,11 +127,5 @@ public class Ventas {
         this.importe = importe;
     }
 
-    public ComprasCliente getCompra() {
-        return compra;
-    }
-
-    public void setCompra(ComprasCliente compra) {
-        this.compra = compra;
-    }
+   
 }

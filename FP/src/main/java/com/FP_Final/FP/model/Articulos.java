@@ -22,6 +22,18 @@ public class Articulos {
 
     @Column(nullable = false)
     private int cantidad;
+    
+
+    @Column(nullable = false, length = 13, unique = true)
+    private String codigo;
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
 
 	public int getId() {
 		return id;

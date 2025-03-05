@@ -1,10 +1,12 @@
 package com.FP_Final.FP.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.FP_Final.FP.model.ComprasCliente;
+import com.FP_Final.FP.model.ComprasClienteDTO;
 import com.FP_Final.FP.service.CompraService;
 
 import java.util.List;
@@ -44,6 +46,15 @@ public class CompraController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(compras);
+    }
+    
+ // Endpoint para registrar "múltiples" ComprasCliente de una sola vez
+    @PostMapping("/registrar/list")
+    public ResponseEntity<List<ComprasCliente>> registrarComprasCliente(
+            @RequestBody List<ComprasClienteDTO> comprasDTO) {
+        
+        List<ComprasCliente> nuevasCompras = compraService.registrarComprasCliente(comprasDTO);
+        return new ResponseEntity<>(nuevasCompras, HttpStatus.CREATED);
     }
 }
 

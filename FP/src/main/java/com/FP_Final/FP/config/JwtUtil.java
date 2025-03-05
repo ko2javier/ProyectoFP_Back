@@ -3,6 +3,8 @@ package com.FP_Final.FP.config;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,7 @@ public class JwtUtil {
         return this.secretKey;
     }
 
+    
     public String generateToken(String username, String role) {
         return Jwts.builder()
                 .setSubject(username)
@@ -29,6 +32,22 @@ public class JwtUtil {
                 .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256) // Usa la clave secreta fija
                 .compact();
     }
+    /*
+    public void generateToken(HttpServletResponse response, String username) {
+        String jwt = Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) 
+                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256) 
+                .compact();
+
+        Cookie jwtCookie = new Cookie("jwtToken", jwt);
+        jwtCookie.setHttpOnly(true);   
+        jwtCookie.setSecure(true);     
+        jwtCookie.setPath("/");        
+
+        response.addCookie(jwtCookie);
+    }*/
 
     public boolean validateToken(String token, String username) {
         String extractedUsername = extractUsername(token);

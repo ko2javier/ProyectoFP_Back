@@ -35,6 +35,20 @@ public class ComprasCliente {
 
     @Column(nullable = false, length = 20)
     private String dnicliente; // DNI del cliente
+    
+	public ComprasCliente() {}
+	
+	// Constructor con todos (o los que tú necesites) campos
+    public ComprasCliente(Ventas venta,  String producto,
+                          int cantidad, double importe, String dnicliente) {
+        this.venta = venta;
+        this.dia = LocalDate.now();
+        this.hora = LocalTime.now();
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.importe = importe;
+        this.dnicliente = dnicliente;
+    }
 
     // Getters y Setters
     public int getId() {

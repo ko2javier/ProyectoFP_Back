@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.FP_Final.FP.model.VentaDTO;
 import com.FP_Final.FP.model.Ventas;
 import com.FP_Final.FP.service.VentaService;
 
@@ -34,5 +35,17 @@ public class VentaController {
             return ResponseEntity.noContent().build(); // 204 No Content si no hay ventas para ese usuario
         }
         return ResponseEntity.ok(ventas); // 200 OK con la lista de ventas para el usuario
+    }
+    
+    @PostMapping("/registrar")
+    public ResponseEntity<Ventas> registrarVenta(@RequestBody VentaDTO ventaDTO) {
+        Ventas nuevaVenta = ventaService.registrarVenta(ventaDTO);
+        return ResponseEntity.ok(nuevaVenta);
+    }
+    
+    @PostMapping("/registrar/list")
+    public ResponseEntity<List<Ventas>> registrarVentas(@RequestBody List<VentaDTO> ventasDTO) {
+        List<Ventas> nuevasVentas = ventaService.registrarVentas(ventasDTO);
+        return ResponseEntity.ok(nuevasVentas);
     }
 }
