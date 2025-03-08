@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.FP_Final.FP.model.Articulos;
+import com.FP_Final.FP.model.UpdateDTO;
+import com.FP_Final.FP.model.VentaDTO;
 import com.FP_Final.FP.service.ArticuloService;
 
 import java.util.List;
@@ -34,6 +36,36 @@ public class ArticuloController {
         
         return ResponseEntity.ok(articulos);
     }
+    
+    //Para hacer update al stock de un articulo
+    @PutMapping("/updateStock")
+    public ResponseEntity<List<Articulos>> updateArticuloStock(@RequestBody List<UpdateDTO> updateDTOs) {
+        List<Articulos> updatedArticulos = articuloService.updateStockBatch(updateDTOs);
+        if (updatedArticulos == null || updatedArticulos.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedArticulos);
+    }
+    
+    //Para hacer update al a un articulo
+    @PutMapping("/updateItem")
+    public ResponseEntity<Articulos> updateArticulo(@RequestBody UpdateDTO articulo) {
+    	
+		Articulos updatedArticulo = articuloService.updateItem(articulo);
+		if (updatedArticulo == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(updatedArticulo);
+    }
+    
+    // Para borrar un articulo!!
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteArticulo(@PathVariable int id) {
+        articuloService.deleteArticuloById(id);
+        return ResponseEntity.noContent().build();
+    }
+    
+ 
     
     
 }
