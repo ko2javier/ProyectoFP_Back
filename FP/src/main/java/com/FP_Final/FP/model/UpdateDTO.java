@@ -2,10 +2,31 @@ package com.FP_Final.FP.model;
 
 public class UpdateDTO {
 	private int cantidadVendida;
+	
 	private String codigo;
 	private int cantidad;
 	private double precio;
+	private String nombre;
+	private String categoria;
 	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	
+	
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
 
 	public String getCodigo() {
 		return codigo;

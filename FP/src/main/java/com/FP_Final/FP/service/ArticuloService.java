@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.FP_Final.FP.repository.ArticulosRepository;
-import com.FP_Final.FP.model.Articulos;
-import com.FP_Final.FP.model.UpdateDTO;
-
 import org.springframework.stereotype.Service;
+
+import com.FP_Final.FP.model.Articulos;
+import com.FP_Final.FP.model.Insert_DTO;
+import com.FP_Final.FP.model.UpdateDTO;
+import com.FP_Final.FP.repository.ArticulosRepository;
 
 @Service
 public class ArticuloService {
@@ -62,6 +62,36 @@ public class ArticuloService {
 		        
 		    
 		
+		}
+	 
+	// Método to generar un código único 13dig
+	 
+	    private String generateUniqueCode() {
+	        String code; long randomNum;
+	        do {
+	            // número aleatorio entre 0 y 9,999,999,999,999 
+	             randomNum = (long) (Math.random() * 10000000000000L);
+	             
+	            code = String.format("%013d", randomNum);
+	        } while (art.findByCodigo(code) != null);  // Repetir if exists!!
+
+	        return code;
+	    }
+	 
+	 public Articulos InsertItem(Insert_DTO updates) {
+		 String code = generateUniqueCode(); // Genero un codigo unico y lo añado al nuevo articulo
+		 
+		 		 // Verifico que updates no sea null
+		        if (updates == null ) {
+		            throw new RuntimeException("Artículo Vacio: ");
+		        }
+		   
+		        //public Articulos(String nombre, String categoria, double precio, int cantidad, String codigo)
+		        
+		        // 2- Devuelvo el articulo creado ok
+		        
+		        return art.save(new Articulos(updates.getNombre(), updates.getCategoria(), updates.getPrecio(),
+		        		 updates.getCantidad(), code));       
 		}
 
 	 

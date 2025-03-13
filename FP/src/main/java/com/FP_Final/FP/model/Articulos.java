@@ -16,8 +16,18 @@ public class Articulos {
 
     @Column(nullable = false, length = 50)
     private String categoria;
+    
+    public Articulos() {}
 
-    @Column(nullable = false)
+    public Articulos(String nombre, String categoria, double precio, int cantidad, String codigo) {
+		this.nombre = nombre;
+		this.categoria = categoria;
+		this.precio = precio;
+		this.cantidad = cantidad;
+		this.codigo = codigo;
+	}
+
+	@Column(nullable = false)
     private double precio;
 
     @Column(nullable = false)

@@ -21,6 +21,17 @@ public class Users {
 
     @Column(nullable = false, length = 50)
     private String permiso;
+    
+    public Users() {}
+    
+
+	public Users(String username, String password, boolean enabled, String permiso) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.permiso = permiso;
+	}
 
 	public int getId() {
 		return id;
